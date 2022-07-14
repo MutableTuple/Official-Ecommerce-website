@@ -1,0 +1,140 @@
+{% include 'base/navbar.html' %}
+{% load mathfilters %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'styles/single_products.css' %}">
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gantari&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@100&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main-container">
+        <div class="container-left">
+            <div class="product-image">
+                <img id="single-product-image" src="{{product.product_image.url}}" alt="">
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+
+            <h1>About This Item</h1>
+            <br>
+            <div class="description">
+                <p>{{product.item_description |linebreaksbr}}</p>
+            </div>
+            
+        </div>
+        <div class="container-right">
+            <h1 id="product-name">{{product.item_name}}</h1>
+            <div class="price">
+                {% if product.is_on_sale %}
+                <div id="product-price"><h1><s id="product-price-2">{{product.amount}} ₹</s> {{product.sale_amount}} ₹</h1> </div>
+                {% else %}
+                <div id="product-price"><h1>{{product.amount}} ₹</h1> </div>
+
+                {% endif %}
+                
+              
+                
+             
+            </div>
+            {% if product.is_on_sale %}
+            <div class="saleTag">
+                <h3 class="sale-tag-head">
+                    {% with numerator=product.amount denominator=product.sale_amount %}
+                    {{ numerator|div:denominator |floatformat:"2" }} %  off on this product
+                    {% endwith %}
+                </h3>
+                <h2>😍Coupons & Offers</h2>
+                <p>
+                    {% if product.offers %}
+                    <h3 id="product-offers-true"> 🏷️{{ product.offers|linebreaksbr }}</h3>
+
+                    {% else %}
+                    <h4>🥲 This product has no offers avaliable</h4>
+                    {% endif %}
+                 
+                </p>
+            </div>
+
+
+            {% endif %}
+
+            <div class="buynow-or-addcart">
+                <a href=""class="buy-now">
+                    <div >BUY NOW</div>
+                </a>
+                
+
+                <a href=""class="add-to-cart" >
+                <div >ADD TO CART </div>
+                </a> 
+            </div>
+            <br>
+            <br>
+            
+           
+            
+        </div>
+
+        
+    </div>
+
+    <div class="recent">
+        <h1 id="text-1">Products based on your recent activity..</h1>
+
+        <div class="box-con">
+            {% for products in products %}
+            
+            <div class="recentCards">
+                <img id="recent-products" src="{{products.product_image.url}}" alt="">
+               
+                <h6 id="recent-product-name">{{products.item_name | truncatechars:60}}</h6>
+                <h6 id="recent-amount">{{products.amount}}₹</h6>
+  
+
+                <!-- <div class="view"> -->
+                    <div class="spacer">
+                       <a href="{% url 'products' products.id %}"><h2>VIEW</h2></a> 
+                    </div>
+                    
+                <!-- </div> -->
+            </div>
+           
+            {% endfor %}
+
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+
+    
+</body>
+</html>

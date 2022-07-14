@@ -1,0 +1,96 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+
+
+<!-- navbar -->
+<!-- navbar -->
+{% block content %}
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap" rel="stylesheet">
+{% include 'base/navbar.html' %}
+
+   <div class="container">
+        <div class="menu-left">
+            <div class="category-container">
+                <h3>Categories </h3>
+                <br>
+                <br>
+                <div class="spacer-2">
+                    <div class="spacer-in">
+                <a id="all-items" href="{% url 'home' %}">All</a>
+
+                    </div>
+
+                </div>
+
+                {% for catergories in catergories %}
+             
+                 <a id="category-name" href="{% url 'home' %}?category={{ catergories.category_name }}">{{ catergories.category_name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="card-con" id="card-con">
+           
+            <div class="container-main">
+                <!-- <div class="banner">
+                    <h1 id="banner-text">Huge SAAAALEEE........</h1>
+                    <h6>Only for today</h6>
+                </div>
+                -->
+                {% for user in user %}
+              
+           
+                <div class="card">
+                   
+                    <div class="image-box">
+                       
+                            <img class="user-image" src="{{user.product_image.url}}" alt="">
+                       
+                    </div>
+                    <div class="details-box">
+                        <div class="name-details">
+                            <a href=""><h5 id="user-name">{{user.item_name|truncatechars:40}}</h5></a>
+
+                        </div>
+
+                        
+                      
+                    </div>  
+                    <h1 id="last-name">{{user.amount}} ₹</h1>
+
+                    <!-- <div class="spacer"> -->
+                        <div class="buy-now-box">
+                          <a href="{% url 'products' user.id %}" id="bnow">BUY NOW</a> 
+                          
+                        </div>
+                    <!-- </div> -->
+                    
+                    
+                    
+
+                </div>
+             
+                {% endfor %}
+              
+            </div>  
+           
+        </div>
+   </div>
+
+
+
+    
+    
+</body>
+
+
+
+{% endblock content %}
+<br>
+<br>
+<br>
+<br>
